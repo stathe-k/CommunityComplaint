@@ -1,0 +1,45 @@
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="hero mb-5">
+    <div class="eyebrow-pill mb-3">🌍 Every Report Counts</div>
+    <h1 class="display-5">Report Civic Issues in <span class="accent">Minutes</span></h1>
+    <p class="lede col-md-8 mx-auto mt-3">
+        Garbage accumulation, water leakage, road potholes, broken streetlights, drainage overflows —
+        report it here and track its resolution in real time.
+    </p>
+
+    <div class="apology">
+        Sorry that you are facing a civic issue. We are here to help you report it easily.
+    </div>
+
+    <div class="d-flex justify-content-center gap-3 mt-4">
+        <a class="btn btn-primary btn-lg" asp-controller="Complaint" asp-action="Register">Report a Complaint</a>
+        <a class="btn btn-outline-secondary btn-lg" asp-controller="Complaint" asp-action="Track">Track Status</a>
+    </div>
+</div>
+
+<div class="row g-4 text-start">
+    <div class="col-md-4">
+        <div class="feature-tile">
+            <div class="ic">📝</div>
+            <h4>1. Register</h4>
+            <p>Just your name and mobile number — no lengthy sign-up.</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="feature-tile">
+            <div class="ic">📍</div>
+            <h4>2. Submit</h4>
+            <p>Pick a category, describe the issue, add your location or a photo.</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="feature-tile">
+            <div class="ic">✅</div>
+            <h4>3. Track</h4>
+            <p>Use your Complaint ID and mobile number to check progress anytime.</p>
+        </div>
+    </div>
+</div>

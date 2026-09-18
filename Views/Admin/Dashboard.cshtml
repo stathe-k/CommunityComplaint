@@ -1,0 +1,96 @@
+@model List<Complaint>
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    var statuses = new[] { "All", "Pending", "In Progress", "Resolved" };
+    var departments = new[] { "Unassigned", "Sanitation Department", "Water Department", "Electrical Department", "Roads Department", "Drainage Department" };
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Admin Dashboard</h2>
+    <a class="btn btn-outline-danger btn-sm" asp-action="Logout">Logout</a>
+</div>
+
+<div class="card mb-3">
+    <div class="card-body py-3">
+        <form method="get" class="row g-2 align-items-center">
+            <div class="col-auto">
+                <select name="status" class="form-select" onchange="this.form.submit()">
+                    @foreach (var s in statuses)
+                    {
+                        if (s == (string)ViewBag.CurrentStatus)
+                        {
+                            <option value="@s" selected>@s</option>
+                        }
+                        else
+                        {
+                            <option value="@s">@s</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="col-auto flex-grow-1">
+                <input type="text" name="search" class="form-control" placeholder="Search by ID, mobile, category, location" value="@ViewBag.CurrentSearch" />
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-secondary">Search</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Citizen</th>
+                <th>Mobile</th>
+                <th>Category</th>
+                <th>Location</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Department</th>
+                <th>Update</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var c in Model)
+            {
+                <tr>
+                    <td>@c.ComplaintId</td>
+                    <td>@c.User?.Name</td>
+                    <td>@c.User?.MobileNumber</td>
+                    <td>@c.Category</td>
+                    <td>@c.Location</td>
+                    <td>@c.Date.ToString("dd MMM yyyy")</td>
+                    <td>@c.Status</td>
+                    <td>@c.AssignedDept</td>
+                    <td>
+                        <form asp-action="UpdateComplaint" method="post" class="d-flex gap-1">
+                            <input type="hidden" name="complaintId" value="@c.ComplaintId" />
+                            <select name="status" class="form-select form-select-sm">
+                                <option value="Pending" selected="@(c.Status == "Pending")">Pending</option>
+                                <option value="In Progress" selected="@(c.Status == "In Progress")">In Progress</option>
+                                <option value="Resolved" selected="@(c.Status == "Resolved")">Resolved</option>
+                            </select>
+                            <select name="assignedDept" class="form-select form-select-sm">
+                                @foreach (var d in departments)
+                                {
+                                    if (d == c.AssignedDept)
+                                    {
+                                        <option value="@d" selected>@d</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@d">@d</option>
+                                    }
+                                }
+                            </select>
+                            <button type="submit" class="btn btn-sm btn-primary">Save</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
