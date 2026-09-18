@@ -1,0 +1,40 @@
+@model Complaint
+@{
+    ViewData["Title"] = "Complaint Status";
+    var badgeClass = Model.Status switch
+    {
+        "Resolved" => "bg-success",
+        "In Progress" => "bg-warning",
+        _ => "bg-danger"
+    };
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h3>Complaint #@Model.ComplaintId</h3>
+                <span class="badge @badgeClass fs-6">@Model.Status</span>
+
+                <dl class="row mt-4">
+                    <dt class="col-sm-4">Category</dt>
+                    <dd class="col-sm-8">@Model.Category</dd>
+                    <dt class="col-sm-4">Description</dt>
+                    <dd class="col-sm-8">@Model.Description</dd>
+                    <dt class="col-sm-4">Location</dt>
+                    <dd class="col-sm-8">@Model.Location</dd>
+                    <dt class="col-sm-4">Assigned Department</dt>
+                    <dd class="col-sm-8">@Model.AssignedDept</dd>
+                    <dt class="col-sm-4">Submitted On</dt>
+                    <dd class="col-sm-8">@Model.Date.ToString("dd MMM yyyy, hh:mm tt")</dd>
+                </dl>
+
+                @if (!string.IsNullOrEmpty(Model.Photo))
+                {
+                    <img src="@Model.Photo" class="img-fluid rounded" alt="Complaint photo" />
+                }
+            </div>
+        </div>
+        <a class="btn btn-link mt-3" asp-action="Track">← Track another complaint</a>
+    </div>
+</div>

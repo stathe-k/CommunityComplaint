@@ -1,0 +1,37 @@
+@model TrackViewModel
+@{
+    ViewData["Title"] = "Track Complaint";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="mb-1">Track Your Complaint</h2>
+                <p class="text-muted mb-4">Enter your Complaint ID and registered mobile number.</p>
+
+                <form asp-action="Track" method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="ComplaintId" class="form-label"></label>
+                        <input asp-for="ComplaintId" class="form-control" placeholder="e.g. 101" />
+                        <span asp-validation-for="ComplaintId" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="MobileNumber" class="form-label"></label>
+                        <input asp-for="MobileNumber" class="form-control" placeholder="10-digit mobile number" maxlength="10" />
+                        <span asp-validation-for="MobileNumber" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 mt-2">Check Status →</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
